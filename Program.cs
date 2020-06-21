@@ -9,11 +9,11 @@ namespace Sandbox
 {
     class Program
     {
-        private static readonly int H = 13500 >> 0;
-        private static readonly int W = 11462 >> 0;
+        private static readonly int H = 2048;
+        private static readonly int W = 4096;
         //private static readonly int W = 2048;
         //private static readonly int H = 2048;
-        private static readonly int HIGHEST = 5000;
+        private static readonly int HIGHEST = 1000;
         static void Main(string[] args)
         {
 
@@ -35,23 +35,27 @@ namespace Sandbox
                             Console.WriteLine(String.Format("{0,-10} {1,-40}", "mandelbrot", "Renders a fractal based on the Mandelbrot Set"));
                             break;
                         case "buddhabrot":
-                            _ = new Buddhabrot(W, H, 0, HIGHEST)
+                            _ = new Buddhabrot(W, H, 3, HIGHEST)
                                 .Init(-1.9, 1.9, -2.1, 1.7)
                                 .Render()
                                 .SaveSettings("settings.json")
                                 .SaveDistance("distance.dat")
                                 .SaveExposure("exposure.dat")
-                                .HSVtoRGB()
+                                //.HSVtoRGB()
+                                .LogBaseHighest()
                                 .SaveImage();
                             break;
                         case "glynn":
                             _ = new Glynn(W, H, HIGHEST)
-                                .Init(0.085, 0.485, -0.69, -0.29)
+                                .Init(-2, 2, -1, 1)
+                                //.Init(0.085, 0.485, -0.69, -0.29)
                                 .Render()
                                 .SaveSettings("settings.json")
                                 .SaveDistance("distance.dat")
                                 .SaveExposure("exposure.dat")
-                                .Binned()
+                                //.ExposureHSV()
+                                .DistanceHSV()
+                                //.Binned()
                                 .SaveImage();
                             break;
                         case "julia":
@@ -84,21 +88,27 @@ namespace Sandbox
                             Console.WriteLine(String.Format("{0,-10} {1,-40}", "mandelbrot", "Renders a fractal based on the Mandelbrot Set"));
                             break;
                         case "buddhabrot":
-                            _ = new Buddhabrot(W, H, 256, HIGHEST)
+                            _ = new Buddhabrot(W, H, 3, HIGHEST)
                                 .Init(-1.9, 1.9, -2.1, 1.7)
                                 .LoadSettings("settings.json")
                                 .LoadDistance("distance.dat")
                                 .LoadExposure("exposure.dat")
-                                .HSVtoRGB()
+                                //.ExposureHSV()
+                                .LogBaseHighest()
                                 .SaveImage();
                             break;
                         case "glynn":
                             _ = new Glynn(W, H, HIGHEST)
-                                .Init(0.085, 0.485, -0.69, -0.29)
+                                //.Init(-2, 2, -2, 2)
+                                //.Init(0.085, 0.485, -0.69, -0.29)
+                                .Init(-2, 2, -1, 1)
                                 .LoadSettings("settings.json")
                                 .LoadDistance("distance.dat")
                                 .LoadExposure("exposure.dat")
-                                .Binned()
+                                //.ExposureHSV()
+                                .DistanceHSV()
+                                //.LogBaseHighest()
+                                //.Binned()
                                 .SaveImage();
                             break;
                         case "julia":

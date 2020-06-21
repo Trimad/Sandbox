@@ -2,7 +2,7 @@
   "profiles": {
     "Sandbox": {
       "commandName": "Project",
-      "commandLineArgs": "load fractal buddhabrot"
+      "commandLineArgs": "draw fractal glynn"
     }
   }
 }

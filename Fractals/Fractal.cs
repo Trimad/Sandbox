@@ -16,11 +16,6 @@ namespace Sandbox.Fractals
         internal int[] exposure, canvas;
         internal double aspectRatio;
         internal double[] distance;
-
-
-
-        //Span<double> numbers = stackalloc double[10];
-
         internal double[][][] domain;
         internal String name = "Fractal";
         internal String savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Output");
@@ -115,7 +110,6 @@ namespace Sandbox.Fractals
             set.CopyTo(sortedArray);
             //3. Sort the array in ascending order.
             Array.Sort(sortedArray);
-
             //4. Build a hash table where each unique value corresponds to its position in the sorted array. 
             for (int i = 0; i < sortedArray.Length; i++)
             {
@@ -137,8 +131,6 @@ namespace Sandbox.Fractals
             }
             return this;
         }
-
-
         public Fractal Mapped()
         {
             _ = Parallel.For(0, exposure.Length, i =>
@@ -154,7 +146,6 @@ namespace Sandbox.Fractals
             });
             return this;
         }
-
         public Fractal RampExposure(double howMuch)
         {
             Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod());
@@ -214,37 +205,6 @@ namespace Sandbox.Fractals
             });
             return this;
         }
-        public Fractal LogBaseHighestModified()
-        {
-            var hsv = new ColorMine.ColorSpaces.Hsv();
-
-            _ = Parallel.For(0, exposure.Length, i =>
-            {
-
-                double logA = Math.Log(exposure[i], highest);
-                //double logB = Math.Log(distance[i], 360);
-                hsv.H = distance[i];
-                hsv.S = 1;
-                hsv.V = 1;
-
-                var rgb = hsv.ToRgb();
-                int r = (int)rgb.R;
-                int g = (int)rgb.G;
-                int b = (int)rgb.B;
-
-                //int r = (int)Auxiliary.MapDouble(distance[i], 0, 359, 0, 255);
-                //int g = (int)Auxiliary.MapDouble(distance[i], 0, 359, 0, 255);
-                //int b = (int)Auxiliary.MapDouble(distance[i], 0, 359, 0, 255);
-
-                canvas[i] = 255 << 24 | r << 16 | g << 8 | b << 0;
-
-                //if (r > 1) { canvas[i] = 255 << 24 | r << 16 | g << 8 | b << 0; } 
-                //else { canvas[i] = 0 << 24 | 0 << 16 | 0 << 8 | 0 << 0; }
-
-
-            });
-            return this;
-        }
         public Fractal SmoothDistance()
         {
             Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod());
@@ -266,20 +226,16 @@ namespace Sandbox.Fractals
         }
 
 
-        public Fractal HSVtoRGB()
+        public Fractal ExposureHSV()
         {
             Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod());
             var hsv = new ColorMine.ColorSpaces.Hsv();
 
-            for (int i = 0; i < distance.Length; i++)
+            for (int i = exposure.Length - 1; i > 0; i--)
             {
-
-                double x = Auxiliary.MapDouble(exposure[i], 0, highest, 0, 1);
-                //double x = Math.Log(exposure[i], highest)*360;
-
-                hsv.H = distance[i];
-                //Console.WriteLine(x);
-                hsv.S = x;
+                double x = (exposure[i] != 0) ? Math.Log(exposure[i], highest) * 360 : 0;
+                hsv.H = x;
+                hsv.S = 1;
                 hsv.V = 1;
 
                 var rgb = hsv.ToRgb();
@@ -287,13 +243,34 @@ namespace Sandbox.Fractals
                 int g = (int)rgb.G;
                 int b = (int)rgb.B;
 
-
                 canvas[i] = 255 << 24 | r << 16 | g << 8 | b << 0;
 
             }
-
             return this;
+        }
 
+        public Fractal DistanceHSV()
+        {
+            Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod());
+            var hsv = new ColorMine.ColorSpaces.Hsv();
+
+            for (int i = distance.Length - 1; i > 0; i--)
+            {
+                double x = (distance[i] != 0) ? Math.Log(distance[i], highest) * 360 : 0;
+                hsv.H = x;
+                hsv.S = 1;
+                hsv.V = 1;
+
+                var rgb = hsv.ToRgb();
+                int r = (int)rgb.R;
+                int g = (int)rgb.G;
+                int b = (int)rgb.B;
+
+                canvas[i] = 255 << 24 | r << 16 | g << 8 | b << 0;
+
+
+            }
+            return this;
         }
 
         /***********************************************************************************/

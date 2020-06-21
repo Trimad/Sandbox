@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Threading;
+using Troschuetz.Random.Generators;
 
 namespace Sandbox.Fractals
 {
     public class Buddhabrot : Fractal
     {
         [ThreadStatic]
-        static Random rand = new Random();
-        int cutoff;
+        static MT19937Generator rand = new MT19937Generator();
+        //static ALFGenerator rand = new ALFGenerator();
+        //static XorShift128Generator rand - new XorShift128Generator();
+
+        readonly int cutoff;
         Complex zero = new Complex(0, 0);
         public Buddhabrot(int _width, int _height, int _cutoff, int _highestExposureTarget)
         {
@@ -42,15 +46,17 @@ namespace Sandbox.Fractals
 
         private void Plot()
         {
-
             if (rand == null)
             {
-                rand = new Random();
+                rand = new MT19937Generator();
+                //rand = new ALFGenerator();
             }
             while (highest < highestExposureTarget)
             {
+
                 double r = rand.NextDouble() * (domain[width - 1][0][0] - domain[0][0][0]) + domain[0][0][0];
                 double i = rand.NextDouble() * (domain[0][height - 1][1] - domain[0][0][1]) + domain[0][0][1];
+
                 if (Iterate(r, i, false))
                 {
                     Iterate(r, i, true);
@@ -62,17 +68,13 @@ namespace Sandbox.Fractals
 
         private bool Iterate(double r, double i, bool drawIt)
         {
-          
-            
-            Complex temp = new Complex(0, 0);
             Complex c = new Complex(r, i);
-            Complex znew = new Complex(0, 0);
+            Complex z = new Complex(0, 0);
             double iterations = 0;
             do
             {
-                znew.Copy(temp);
-                znew.Square();
-                znew.AddRotated(c);
+                z.Square();
+                z.AddRotated(c);
 
                 if (drawIt && iterations >= cutoff)
                 {
@@ -80,41 +82,39 @@ namespace Sandbox.Fractals
                     double Bx = domain[width - 1][0][0];
                     //double Cx = 0;
                     double Dx = width;
-                    int rx = (int)((znew.i - Ax) / (Bx - Ax) * Dx);
+                    int rx = (int)((z.i - Ax) / (Bx - Ax) * Dx);
 
                     double Ay = domain[0][0][1];
                     double By = domain[0][height - 1][1];
                     //double Cy = 0;
                     double Dy = height;
 
-                    int iy = (int)((znew.r - Ay) / (By - Ay) * Dy);
+                    int iy = (int)((z.r - Ay) / (By - Ay) * Dy);
 
                     if (rx >= 0 && iy >= 0 && iy < height && rx < width)
                     {
                         int index = rx + iy * width;
                         exposure[index]++;//1 divided by 255
-                        distance[index] = znew.Angle(zero);
+                        distance[index] = z.Angle(zero);
 
                         if (highest < exposure[index])
                         {
                             highest = exposure[index];
-                            //if (Thread.CurrentThread.ManagedThreadId == 18) { Console.WriteLine(highest); }
+                            if (Thread.CurrentThread.ManagedThreadId == 18) { Console.WriteLine(highest); }
                         }
 
                     }
                 }
 
-                if (znew.MagnitudeOpt() > 4.0)
+                if (z.MagnitudeOpt() > 4.0)
                 {
                     // escapes
                     return true;
                 }
-                temp.Copy(znew);
 
             }
             while (iterations++ < highestExposureTarget);
-
-            ////does not escape
+            //does not escape
             return false;
         }
 

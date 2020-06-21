@@ -28,7 +28,6 @@ namespace Sandbox.Fractals
                     System.Numerics.Complex z = new System.Numerics.Complex(zx, zy);
                     do
                     {
-
                         z = System.Numerics.Complex.Pow(z, 1.5);
                         z = System.Numerics.Complex.Subtract(z, 0.2);
                         //z = Complex.Pow(z, 1.5);
@@ -36,15 +35,22 @@ namespace Sandbox.Fractals
                         //z.Add(c);
                         //z.Pow(1.5);
                         //z.Subtract(c);
-
                     }
 
                     //while (z.Magnitude() <= 2.0 && iterations++ < highestExposureTarget);
                     while (z.Magnitude <= 2.0 && iterations++ < highestExposureTarget);
                     
                     Complex zTemp = new Complex(z.Real, z.Imaginary);
-                    distance[x + y * width] = iterations / zTemp.Distance(new Complex(0,0));
-                    exposure[x + y * width] = iterations;
+                    //distance[x + y * width] = iterations / zTemp.Distance(new Complex(0,0));
+                    int index = x + y * width;
+                    distance[index] = z.Phase;
+                    exposure[index] = iterations;
+
+                    if (highest < exposure[index])
+                    {
+                        highest = exposure[index];
+                    }
+
                 }
             });
 
