@@ -37,9 +37,9 @@ namespace Sandbox.Fractals
                     } while (z.MagnitudeOpt() < 4.0 && iterations++ < bailout);
                     int index = x + y * width;
                     exposure[index] = iterations;
-                    if (highest < exposure[index])
+                    if (highestActual < exposure[index])
                     {
-                        highest = exposure[index];
+                        highestActual = exposure[index];
                     }
                  
                 }

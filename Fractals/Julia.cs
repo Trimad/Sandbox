@@ -24,14 +24,17 @@ namespace Sandbox.Fractals
                 for (int y = 0; y < height; y++)
                 {
                     int iterations = 0;
-                    double zx = Auxiliary.MapDouble(x, 0, width, domain[0][0][0], domain[width - 1][0][0]);
-                    double zy = Auxiliary.MapDouble(y, 0, height, domain[0][0][1], domain[0][height - 1][1]);
+                    double zx = Helper.Map(x, 0, width, domain[0][0][0], domain[width - 1][0][0]);
+                    double zy = Helper.Map(y, 0, height, domain[0][0][1], domain[0][height - 1][1]);
                     Complex z = new Complex(zx, zy);
+                    Complex last = new Complex(0, 0);//for shading
+                    double totalDistance = 0;
                     do
                     {
+                        last = z;
                         z.Square();
                         z.Add(c);
-
+                        totalDistance += z.Distance(last);
                     }
                     while (z.MagnitudeOpt() <= 4.0 && iterations++ < highestExposureTarget);
                     int index = x + y * width;
@@ -39,11 +42,11 @@ namespace Sandbox.Fractals
                     //distance[x + y * width] = Math.Log(z.Distance(c));
                     distance[x + y * width] = z.Distance(z);
                     exposure[index] = iterations;
-                    if (highest < exposure[index])
+                    if (highestActual < exposure[index])
                     {
-                        highest = exposure[index];
+                        highestActual = exposure[index];
                     }
-                    //distance[x + y * width] = Math.Log(z.Distance(c) - z.Magnitude());
+                    distance[x + y * width] = Math.Log(totalDistance);
                     //distance[x + y * width] = iterations - Math.Log(Math.Log(z.Magnitude()) / Math.Log(256))/ Math.Log(2.0);
                 }
             });

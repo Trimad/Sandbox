@@ -43,7 +43,6 @@ namespace Sandbox
 
         public double Magnitude()
         {
-
             return Math.Sqrt(r * r + i * i);//less than 2
         }
         public double MagnitudeOpt()
@@ -66,6 +65,18 @@ namespace Sandbox
             return hypotenuse;
 
         }
+        public Complex Power(double x)
+        {
+            double modulus = Math.Sqrt(r * r + i * i);
+            double arg = Math.Atan2(i, r);
+            double log_re = Math.Log(modulus);
+            double log_im = arg;
+            double x_log_re = x * log_re;
+            double x_log_im = x * log_im;
+            double modulus_ans = Math.Exp(x_log_re);
+            return new Complex(modulus_ans * Math.Cos(x_log_im), modulus_ans * Math.Sin(x_log_im));
+        }
+
         public void Add(Complex c)
         {
             r += c.r;
@@ -83,7 +94,10 @@ namespace Sandbox
             r -= c.r;
             i -= c.i;
         }
-
+        public Complex Subtract(double x)
+        {
+            return new Complex(r - x, i);
+        }
         public void AddRotated(Complex c)
         {
             r += c.i;
