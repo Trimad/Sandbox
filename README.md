@@ -12,6 +12,11 @@
 This program is controlled via CLI using the following keywords:
 ### [fractal]
 This keyword is substituted for the name of the fractal you would like to render:
+* Acceptable values:
+1. buddhabrot
+2. glynn
+3. julia
+4. mandelbrot
 ### load
 * Optional keyword
 * If you've previously rendered a fractal and saved its configuration using the "save" keyword you can redraw it without have to re-render it. 
@@ -42,9 +47,9 @@ If you don't include this keyword, the fractal won't render. You would omit this
 ## Usage Examples
 Render a Buddhabrot fractal, save the data and draw it to a file.
 ```
-buddhabrot render save shade draw
+buddhabrot render save log-base-highest draw
 ```
 Load a Mandelbrot fractal, skip rendering it, and draw it to a file.
 ```
-mandelbrot load shade draw
+mandelbrot load hex-color draw
 ```
