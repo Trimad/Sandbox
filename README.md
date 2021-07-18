@@ -1,13 +1,9 @@
 # Fractal Sandbox
-
 ## Currently supported Fractals
 1. Buddhabrot
 2. Glynn Set
 3. Julia Set
-4. Logistic Map
 5. Mandlebrot Set
-6. Worley Noise
-
 ## Using the API
 This program is controlled via CLI using the following keywords:
 ### [fractal]
