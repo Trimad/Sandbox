@@ -21,6 +21,20 @@ If you don't include this keyword, the fractal won't render. You would omit this
 * Optional keyword
 * If you'd like to save the data of a rendered fractal so you can re-render it without having to draw it, use the save keyword.
 * A settings.json, distance.dat and exposure.dat will be saved on your desktop along with the drawn image.
+### [shade]
+* Optional
+* Post-processes the render. It's not recommended to omit this keyword because drawing a raw exposure without normalizing it to an ARGB color space rarely produces anything visually interesting. 
+* Acceptable values:
+1. distance-binned
+2. distance-hsv
+3. distance-mapped
+4. exponential
+5. exposure-binned
+6. exposure-hsv
+7. hex-color
+8. log-base-highest
+9. mapped
+10. smooth-step
 ### draw
 * Draws and saves the image to your desktop.
 ### /?
