@@ -134,16 +134,16 @@ namespace Sandbox.Fractals
             image.Save(image_path, ImageFormat.Png);
             return this;
         }
-        public Fractal SaveImage(String s)
-        {
-            Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod());
-            GCHandle bitsHandle = GCHandle.Alloc(canvas, GCHandleType.Pinned);
-            Bitmap image = new Bitmap(width, height, width * 4, PixelFormat.Format32bppArgb, bitsHandle.AddrOfPinnedObject());
-            string image_path = Path.Combine(savePath, s + ".png");
-            Console.WriteLine(image_path);
-            image.Save(image_path, ImageFormat.Png);
-            return this;
-        }
+        //public Fractal SaveImage(String s)
+        //{
+        //    Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod());
+        //    GCHandle bitsHandle = GCHandle.Alloc(canvas, GCHandleType.Pinned);
+        //    Bitmap image = new Bitmap(width, height, width * 4, PixelFormat.Format32bppArgb, bitsHandle.AddrOfPinnedObject());
+        //    string image_path = Path.Combine(savePath, s + ".png");
+        //    Console.WriteLine(image_path);
+        //    image.Save(image_path, ImageFormat.Png);
+        //    return this;
+        //}
         public Fractal SaveExposure(String name)
         {
             Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod());
