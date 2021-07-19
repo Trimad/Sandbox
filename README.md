@@ -9,10 +9,10 @@ This program is controlled via CLI using the following keywords:
 ### [fractal]
 This keyword is substituted for the name of the fractal you would like to render:
 * Acceptable values:
-1. buddhabrot
-2. glynn
-3. julia
-4. mandelbrot
+  1. buddhabrot
+  2. glynn
+  3. julia
+  4. mandelbrot
 ### load
 * Optional keyword
 * If you've previously rendered a fractal and saved its configuration using the "save" keyword you can redraw it without have to re-render it. 
@@ -26,16 +26,16 @@ If you don't include this keyword, the fractal won't render. You would omit this
 * Optional
 * Post-processes the render. It's not recommended to omit this keyword because drawing a raw exposure without normalizing it to an ARGB color space rarely produces anything visually interesting. 
 * Acceptable values:
-1. distance-binned
-2. distance-hsv
-3. distance-mapped
-4. exponential
-5. exposure-binned
-6. exposure-hsv
-7. hex-color
-8. log-base-highest
-9. mapped
-10. smooth-step
+  1. distance-binned
+  2. distance-hsv
+  3. distance-mapped
+  4. exponential
+  5. exposure-binned
+  6. exposure-hsv
+  7. hex-color
+  8. log-base-highest
+  9. mapped
+  10. smooth-step
 ### draw
 * Draws and saves the image to your desktop.
 ### /?
