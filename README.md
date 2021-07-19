@@ -1,11 +1,9 @@
 # Fractal Sandbox
-## Currently supported Fractals
-1. Buddhabrot
-2. Glynn Set
-3. Julia Set
-5. Mandlebrot Set
 ## Using the API
-This program is controlled via CLI using the following keywords:
+This program is controlled via CLI using the following keywords in the following format:
+```
+[fractal] render/load save [shader] draw
+```
 ### [fractal]
 This keyword is substituted for the name of the fractal you would like to render:
 * Acceptable values:
@@ -13,16 +11,16 @@ This keyword is substituted for the name of the fractal you would like to render
   2. glynn
   3. julia
   4. mandelbrot
-### load
-* Optional keyword
-* If you've previously rendered a fractal and saved its configuration using the "save" keyword you can redraw it without have to re-render it. 
 ### render
 If you don't include this keyword, the fractal won't render. You would omit this keyword if you wanted to load from a save file instead. 
+### load
+* Optional keyword
+* If you've previously rendered a fractal and saved its configuration using the "save" keyword you can redraw it without have to re-render it.
 ### save 
 * Optional keyword
 * If you'd like to save the data of a rendered fractal so you can re-render it without having to draw it, use the save keyword.
 * A settings.json, distance.dat and exposure.dat will be saved on your desktop along with the drawn image.
-### [shade]
+### [shader]
 * Optional
 * Post-processes the render. It's not recommended to omit this keyword because drawing a raw exposure without normalizing it to an ARGB color space rarely produces anything visually interesting. 
 * Acceptable values:
