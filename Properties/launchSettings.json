@@ -2,7 +2,7 @@
   "profiles": {
     "Sandbox": {
       "commandName": "Project",
-      "commandLineArgs": "buddhabrot render shade draw"
+      "commandLineArgs": "buddhabrot render log-base-highest save draw"
     }
   }
 }

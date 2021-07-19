@@ -9,8 +9,8 @@ namespace Sandbox
 {
     class Program
     {
-        private static readonly int W = 2048;
-        private static readonly int H = 2048;
+        private static readonly int W = 512;
+        private static readonly int H = 512;
         //private static readonly int W = 13500;
         //private static readonly int H = 13500;
         //private static readonly int HIGHEST = int.MaxValue;
@@ -46,22 +46,24 @@ namespace Sandbox
 
                         }
                         break;
-                    case "buddhabrot":
+                    case "buddhabrot": //fractal
                         fractal = new Buddhabrot(W, H, 0, 1000, HIGHEST)
                             //.Init(-2, 2, -2, 2);
                             .Init(-1.9, 1.9, -2.1, 1.7);
                         break;
-
-                    case "glynn":
+                    case "glynn": //fractal
                         fractal = new Glynn(W, H, HIGHEST, 0, 0)
                         //.Init(0.066, 0.42, -0.6677, -0.323);
                         .Init(1, -1, -1, 1);
                         //.InitPoint(-0.539, 0, 0.2, 0.2);//r, i, width, height
                         break;
-                    case "julia":
+                    case "julia": //fractal
                         fractal = new Julia(W, H, HIGHEST)
                         //.Init(-0.39, -0.7, 0.19, -0.12);
                         .Init(-0.8, 0.8, -0.8, 0.8);
+                        break;
+                    case "mandelbrot": //fractal
+                        fractal = new Mandelbrot(W, H, 3000, HIGHEST).Init(-1, 1, -1, 1);
                         break;
                     case "load":
                         fractal.LoadSettings("settings.json").LoadDistance("distance.dat").LoadExposure("exposure.dat");
@@ -70,24 +72,38 @@ namespace Sandbox
                         fractal = new LogisticMap(W, H, HIGHEST)
                             .Init(0, 0, 0, 0);
                         break;
-                    case "mandelbrot":
-                        fractal = new Mandelbrot(W, H, 3000, HIGHEST).Init(-1, 1, -1, 1);
-                        break;
                     case "render":
                         fractal.Render();
                         break;
-                    case "shade":
-                        fractal.
-                        //DistanceBinned();
-                        //DistanceHSV();
-                        //DistanceMapped();
-                        //Exponential(2);
-                        //ExposureBinned();
-                        //ExposureHSV();
-                        //HexColor();
-                        LogBaseHighest();
-                        //Mapped();
-                        //SmoothStep();
+                    case "distance-binned": //shade
+                        fractal.DistanceBinned();
+                        break;
+                    case "distance-hsv": //shade
+                        fractal.DistanceHSV();
+                        break;
+                    case "distance-mapped": //shade
+                        fractal.DistanceMapped();
+                        break;
+                    case "exponential": //shade
+                        fractal.Exponential(2);
+                        break;
+                    case "exposure-binned": //shade
+                        fractal.ExposureBinned();
+                        break;
+                    case "exposure-hsv": //shade
+                        fractal.ExposureHSV();
+                        break;
+                    case "hex-color": //shade
+                        fractal.HexColor();
+                        break;
+                    case "log-base-highest": //shade
+                        fractal.LogBaseHighest();
+                        break;
+                    case "mapped": //shade
+                        fractal.Mapped();
+                        break;
+                    case "smooth-step": //shade
+                        fractal.SmoothStep();
                         break;
                     case "save":
                         fractal.SaveSettings("settings.json").SaveDistance("distance.dat").SaveExposure("exposure.dat");

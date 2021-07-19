@@ -15,7 +15,8 @@ namespace Sandbox.Fractals
         internal double aspectRatio;
         internal double[][][] domain;
         internal String name = "Fractal";
-        internal String savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Output");
+        //internal String savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Output");
+        internal String savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         internal DateTime t0 = DateTime.Now;
         internal TimeSpan TimeStamp { get => DateTime.Now - t0; }
 
@@ -129,6 +130,7 @@ namespace Sandbox.Fractals
             Bitmap image = new Bitmap(width, height, width * 4, PixelFormat.Format32bppArgb, bitsHandle.AddrOfPinnedObject());
             string image_path = Path.Combine(savePath, name + ".png");
             Console.WriteLine(image_path);
+            Directory.CreateDirectory(savePath);
             image.Save(image_path, ImageFormat.Png);
             return this;
         }
